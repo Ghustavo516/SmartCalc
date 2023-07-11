@@ -1,8 +1,5 @@
 body{
     background-color: #464646;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 #calculadoraContainer{
@@ -82,7 +79,8 @@ input:hover{background-color: #4882c0;
 #clear:hover, #addition:hover, #subtraction:hover, #multiplication:hover, #division:hover{background-color: #38cfe9;
 }
 
-#resultExpression{background: #2eb3ae;
+#resultExpression{
+    background: #2eb3ae;
 }
 
 #resultExpression:hover{background: #36dad4;
