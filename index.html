@@ -9,57 +9,55 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap" rel="stylesheet">
 
 </head>
 <body>
     <div id="calculadoraContainer">
         <div id="resultsContainer">
-            <h1 id="mathExpressionValue">(2 + 3) * (5 - 2) + (5 * 8) / 10</h1>
-            <h1 id="calculatorValue">=4</h1>
+            <h1 id="calculatorValue"></h1>
+            <ul id="mathExpressionValue">
+                <li></li>
+            </ul> 
         </div>
 
         <div id="buttonsContainer">
-            <div class="calcButtons">
-                <input type="button" value="C" id="clear">
-                <input type="button" value="(" id="open-parentheses">
-                <input type="button" value=")" id="close-parentheses">
-                <input type="button" value="*" id="multiplication">
+            <div id="elements">
+                <div class="calcButtons">         
+                    <input type="button" value="(" id="open-parentheses" onclick="inserirExpressao('(')">
+                    <input type="button" value=")" id="close-parentheses" onclick="inserirExpressao(')')">
+                    <input type="button" value="⌫" id="porcentage" onclick="inserirExpressao('⌫')">
+                    <input type="button" value="C" id="clear" onclick="location.reload()">    
+                </div>
+    
+                <div class="calcButtons">
+                    <input type="button" value="7" id="numberSeven" onclick="inserirExpressao('7')">
+                    <input type="button" value="8" id="numberEight"onclick="inserirExpressao('8')">
+                    <input type="button" value="9" id="numberNine"onclick="inserirExpressao('9')">
+                    <input type="button" value="+" id="addition" onclick="inserirExpressao('+')">       
+                </div>
+    
+                <div class="calcButtons">
+                    <input type="button" value="4" id="numberFour" onclick="inserirExpressao('4')">
+                    <input type="button" value="5" id="numberFive" onclick="inserirExpressao('5')">
+                    <input type="button" value="6" id="numberSix" onclick="inserirExpressao('6')">
+                    <input type="button" value="-" id="subtraction" onclick="inserirExpressao('-')">
+                </div>
+    
+                <div class="calcButtons">
+                    <input type="button" value="1" id="numberOne" onclick="inserirExpressao('1')">
+                    <input type="button" value="2" id="numberTwo" onclick="inserirExpressao('2')">
+                    <input type="button" value="3" id="numberThree" onclick="inserirExpressao('3')">
+                    <input type="button" value="×" id="multiplication" onclick="inserirExpressao('×')">      
+                </div>
+    
+                <div class="calcButtons">
+                    <input type="button" value="0" id="numberZero" onclick="inserirExpressao('0')">
+                    <input type="button" value="." id="dot" onclick="inserirExpressao('.')">
+                    <input type="button" value="=" id="resultExpression" onclick="realizaProcedimentosDeCalculo()">
+                    <input type="button" value="/" id="division" onclick="inserirExpressao('/')">            
             </div>
-
-            <div class="calcButtons">
-                <input type="button" value="/" id="clear">
-                <input type="button" value="%" id="open-parentheses">
-                <input type="button" value="±" id="close-parentheses">
-                <input type="button" value="÷" id="multiplication">
-            </div>
-
-            <div class="calcButtons">
-                <input type="button" value="7" id="clear">
-                <input type="button" value="8" id="open-parentheses">
-                <input type="button" value="9" id="close-parentheses">
-                <input type="button" value="-" id="multiplication">
-            </div>
-
-            <div class="calcButtons">
-                <input type="button" value="4" id="clear">
-                <input type="button" value="5" id="open-parentheses">
-                <input type="button" value="6" id="close-parentheses">
-                <input type="button" value="+" id="multiplication">
-            </div>
-
-            <div class="calcButtons">
-                <input type="button" value="1" id="clear">
-                <input type="button" value="2" id="open-parentheses">
-                <input type="button" value="3" id="close-parentheses">
-                <input type="button" value="=" id="resultExpression">
-            </div>
-
-            <div class="calcButtons">
-                <input type="button" value="." id="clear">
-                <input type="button" value="0" id="open-parentheses">
-                <input type="button" value="␈" id="close-parentheses">    
-        </div>
-        
+        </div>       
     </div>
     <script src="js/script.js"></script>
     

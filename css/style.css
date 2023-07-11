@@ -1,5 +1,5 @@
 body{
-    background-color: #212121;
+    background-color: #464646;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,28 +10,81 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 250px;
-    height: 500px;
-    border-radius: 15px;
-    border: 1px solid red;
-    background: rgb(233, 233, 233);
+    width: 260px;
+    height: 550px;
+    border-radius: 30px;
+    border: 5px solid rgb(49, 49, 49);
+    background: #243e63
 }
+
+#buttonsContainer{
+    position: fixed;
+    bottom: 0;
+    background: #212121;
+    padding: 10px 0px 18px 0px;
+    border-radius: 22px;
+    width: 260px;
+}
+#elements{
+    display: block;
+    margin: 0px auto 0px auto;
+    width: 232px;
+    height: inherit;
+}
+
+#resultsContainer{
+    display: block;
+    margin: 0px auto 0px auto;
+    width: 220px;
+    position: relative;
+    top: 30px;
+}
+
+#calculatorValue, #mathExpressionValue{
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 30px;
+    color: #fff;
+    text-align: right;   
+}
+
 
 #mathExpressionValue{
-    border: 1px solid red;
+    margin-top: 10px;
+    font-size: 15px;
+    color: #a3a3a3;
 }
 
-#calculatorValue{
-    border: 1px solid green;
+#mathExpressionValue li{
+    margin-top: 5px;
 }
+
 
 input{
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    margin: 5px 0px 0px 0px;
-    background-color: #212121;
-    font-size: 15px;
-    color: aliceblue;
+    border-radius: 18px;
+    border: none;
+    margin: 5px 5px 0px 0px;
+    background-color: #2d5683;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
+
+input:hover{background-color: #4882c0;
+}
+
+#clear, #addition, #subtraction, #multiplication, #division{
+    background-color: #008cff;
+    border-radius: 30px;
+    font-size: 22px;
+}
+
+#clear:hover, #addition:hover, #subtraction:hover, #multiplication:hover, #division:hover{background-color: #38cfe9;
+}
+
+#resultExpression{background: #2eb3ae;
+}
+
+#resultExpression:hover{background: #36dad4;
 }
 

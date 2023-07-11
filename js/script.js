@@ -1,18 +1,13 @@
+var resolucaoExpressao = [];
+var calculoConcluido = false;
 
-function botãoResultado(){
-    //Recebe o evento do usuário de clicar no botão resultado
-    buttonResult = document.querySelector('#resultExpression');
-    buttonResult = addEventListener('click', function(){
-    mathExpression = this.document.querySelector("#mathExpressionValue").textContent;
-    console.log(mathExpression);
-    realizaProcedimentosDeCalculo(mathExpression);
-    })
-}
+function realizaProcedimentosDeCalculo(){
+    mathExpression = this.document.querySelector("#calculatorValue").textContent;
+    mostraExpressãoResolucao(mathExpression); //Adiciona na interface o processo de operação
 
-function realizaProcedimentosDeCalculo(mathExpression){
     //Procura os sinais de operação dentro da expressão e com base nisso atribui a regra de operação que deve executar
     mathExpression = mathExpression
-    for(var i = 0; i< 5; i++){
+    while(calculoConcluido == false){
         if(mathExpression.includes('(')){
             var posicoesElementos = encontraPosicaoElementos(mathExpression, '(');
             var expressaoAritmetica = encontraExpressaoAritmetica(posicoesElementos.posicaoInicial, posicoesElementos.posicaoFinal, mathExpression);    
@@ -20,12 +15,15 @@ function realizaProcedimentosDeCalculo(mathExpression){
         }else{
             mathExpression = operacaoAritmetica(mathExpression.split(' '), false)
         }
+       
         console.log(mathExpression);
+        mostraExpressãoResolucao(mathExpression);
+        obterResposta(); //Função resposponsavel por mostrar o resultado da operação
     }
 }
 
 function encontraPosicaoElementos(mathExpression, tipoOperacao){
-    //Função responsavel por encotrar a posição do elementos () [] {}
+    //Função responsavel por encontrar a posição do elementos ()
     if(tipoOperacao == '('){
         startReferenceElements = mathExpression.indexOf('(');
         endReferenceElements = mathExpression.indexOf(')');
@@ -54,8 +52,8 @@ function operacaoAritmetica(expressaoAritmetica, parenteses){
         if(expressaoAritmetica[i] == '-'){
             mathExpression = calculaExpressaoAritmetica(expressaoAritmetica, parenteses,  i, '-')
         }
-        if(expressaoAritmetica[i] == '*'){
-            mathExpression = calculaExpressaoAritmetica(expressaoAritmetica, parenteses,  i, '*')
+        if(expressaoAritmetica[i] == '×'){
+            mathExpression = calculaExpressaoAritmetica(expressaoAritmetica, parenteses,  i, '×')
         } 
         if(expressaoAritmetica[i] == '/'){
             mathExpression = calculaExpressaoAritmetica(expressaoAritmetica, parenteses,  i, '/')
@@ -70,23 +68,25 @@ function calculaExpressaoAritmetica(expressaoAritmetica, parenteses, indice, ope
     segundoElemento = converteNumeros(expressaoAritmetica[(indice + 1)]);
 
     if(operador == "+"){calculaExpressao = (primeiroElemento + segundoElemento);}
-    else if(operador == "-"){calculaExpressao = (primeiroElemento - segundoElemento);}
-    else if(operador == "*"){calculaExpressao = (primeiroElemento * segundoElemento);}
-    else calculaExpressao = (primeiroElemento / segundoElemento);
-
-    if(parenteses == true){
-        var posicoesElementos = encontraPosicaoElementos(mathExpression, '(');
-        var expressao = ''
-        for(var i = posicoesElementos.posicaoInicial; i<= posicoesElementos.posicaoFinal; i++){
-            expressao += mathExpression[i];
-        }
-        mathExpression = mathExpression.replace(expressao, calculaExpressao); //Substitui os () apos ter efetuado o calculo, colocando o resultado obtido dentro dos ()
+    if(operador == "-"){calculaExpressao = (primeiroElemento - segundoElemento);}
+    if(operador == "×"){calculaExpressao = (primeiroElemento * segundoElemento);}
+    if(operador == "/"){calculaExpressao = (primeiroElemento / segundoElemento);}
+   
+    expressaoAritmetica[(indice + 1)] = calculaExpressao.toString();
     
+    if(parenteses == true){
+        if((indice + 1) == (expressaoAritmetica.length - 1)){
+            var posicoesElementos = encontraPosicaoElementos(mathExpression, '(');
+            var expressao = ''
+            for(var i = posicoesElementos.posicaoInicial; i<= posicoesElementos.posicaoFinal; i++){
+                expressao += mathExpression[i];
+            }
+            mathExpression = mathExpression.replace(expressao, calculaExpressao); //Substitui os () apos ter efetuado o calculo, colocando o resultado obtido dentro dos ()
+        }
     }else{
         expressaoToReplace = primeiroElemento + " " + expressaoAritmetica[indice] + " " + segundoElemento
         mathExpression = mathExpression.replace(expressaoToReplace, calculaExpressao);
     }
-
     return mathExpression
 }
 
@@ -100,4 +100,47 @@ function converteNumeros(numero){
     return numero
 }
 
-botãoResultado();
+function mostraExpressãoResolucao(expressao){
+    //Função responsavel por criar o elemento li e adicionar dentro da lista
+    var novaExpressao = document.createElement("li");
+    var resolucaoExpressao = document.querySelector("#mathExpressionValue");
+    
+    if(resolucaoExpressao.childNodes[resolucaoExpressao.childNodes.length - 1].textContent == resolucaoExpressao.childNodes[resolucaoExpressao.childNodes.length - 2].textContent){
+        //caso operação matematica tenha finalizado, sera retornado concluido para parar o laço de repetição
+        calculoConcluido = true; 
+        const ultimoLi = document.querySelector('li:last-child');
+        ultimoLi.remove();
+    }else{ 
+        //Adicionar elemento da li com conteudo a lista
+        novaExpressao.textContent = expressao;
+        var resolucao = document.querySelector("#mathExpressionValue");
+        resolucao.appendChild(novaExpressao);
+    }
+}
+
+function obterResposta(){
+    //recebe a resposta de toda a expressão matematica e manipula para melhor exibir na interface
+    var resolucaoExpressao = document.querySelector("#mathExpressionValue");
+    var ultimoElemento = resolucaoExpressao.childNodes[resolucaoExpressao.childNodes.length - 1].textContent;
+
+    ultimoElemento = converteNumeros(ultimoElemento);
+    if(!Number.isInteger(ultimoElemento) && ultimoElemento.length >= 5){
+        ultimoElemento = ultimoElemento.toFixed(3);
+    }
+    var resposta = document.querySelector("#calculatorValue");
+    resposta.textContent = ultimoElemento;
+}
+
+var conta = '';
+function inserirExpressao(elemento){
+    //função responsavel por adicionar os valores quando clicado na calculadora.
+    expressaoUsuario = document.querySelector("#calculatorValue");
+    if(elemento == "-" || elemento == "+" || elemento == "×" || elemento == "/"){
+        elemento = " " + elemento + " ";
+    }
+    if(elemento == "⌫"){
+        expressaoUsuario.textContent = expressaoUsuario.textContent.replace(expressaoUsuario.textContent[expressaoUsuario.textContent.length - 1], "");
+    }else{
+        expressaoUsuario.textContent += elemento;
+    }
+}
