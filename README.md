@@ -1,4 +1,4 @@
-# Calculator: Desvende o Mundo Fascinante da Matemática!
+# SmartCalc: Desvende o Mundo Fascinante da Matemática!
 
 Explore uma calculadora que vai além das simples operações matemáticas. Este projeto visa criar uma calculadora sem a função eval, garantindo que o algoritmo compreenda as regras de operação e forneça respostas precisas às expressões matemáticas, exibindo todo o processo de cálculo até chegar ao resultado.
 
